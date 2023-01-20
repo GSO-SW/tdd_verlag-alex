@@ -98,12 +98,33 @@ namespace VerlagTests
 		[DataRow(";")]
 		[DataRow("§")]
 		[DataRow("%")]
-		[DataRow(null)]
 		[ExpectedException(typeof(ArgumentException))]
-		public void Autor_NurSinnvolleEingabenErlaubt(string unerlaubtesZeichen)
+		public void Autor_NurSinnvolleEingabenErlaubt(string unerlaubteEingabe)
 		{
 			//Act
-			Buch b = new Buch(unerlaubtesZeichen, "titel");
+			Buch b = new Buch(unerlaubteEingabe, "titel");
+		}
+
+		[TestMethod]
+		[DataRow(null)]
+		[ExpectedExeption(typeof(ArgumentNullException))]
+		public void Autor_DarfNichtNullSein()
+		{
+
+		}
+
+		[TestMethod]
+		public void ISBN_DarfGesetztWerden()
+		{
+			//Arrange
+			string ISBN = "9783770436163";
+
+			//ACT
+			Buch b = new Buch("autor", "titel");
+			b.ISBN = ISBN;
+
+			//Assert
+			Assert.AreEqual(b.ISBN, ISBN);
 		}
 	}
 }
