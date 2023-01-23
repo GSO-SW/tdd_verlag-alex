@@ -108,10 +108,12 @@ namespace VerlagTests
 		[TestMethod]
 		[DataRow(null)]
 		[ExpectedExeption(typeof(ArgumentNullException))]
-		public void Autor_DarfNichtNullSein()
+		public void Autor_DarfNichtNullSein(string nullEingabe)
 		{
+            //Act
 
-		}
+            Buch b = new Buch(nullEingabe, "titel");
+        }
 
 		[TestMethod]
 		public void ISBN_DarfGesetztWerden()
@@ -126,5 +128,17 @@ namespace VerlagTests
 			//Assert
 			Assert.AreEqual(b.ISBN, ISBN);
 		}
+
+		[TestMethod]
+		public void ISBN13_KannGesetztwerden()
+		{
+			//Arrange
+			string ISBN13 = "978-3770436163";
+			//Act
+			Buch b = new Buch("autor", "titel");
+			b.ISBN= ISBN13;
+            //Assert
+			Assert.AreEqual(ISBN13,b.ISBN);
+        }
 	}
 }
